@@ -2,8 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include <wchar.h>
-#include <locale.h>
 #include <time.h>
 
 bool print_time_string() {
@@ -26,7 +24,6 @@ bool print_time_string() {
 }
 
 bool print_volume_level() {
-
 	// Open the command for reading
 	FILE* fp = popen("amixer -D pulse get Master | grep -o '[0-9]*%'", "r");
 	if(fp == NULL) {
@@ -41,7 +38,7 @@ bool print_volume_level() {
 		volume[i] = curr;
 		i += 1;
 	}
-	fputs(volume, stdout);
+	printf("%s ", volume);
 
 	// Print appropriate speaker symbol
 	const char* no_volume   = "󰖁";
@@ -57,7 +54,7 @@ bool print_volume_level() {
 		printf(med_volume);
 	}
 	else if(volume_num > 0){
-		printf(high_volume);
+		printf(low_volume);
 	}
 	else {
 		printf(no_volume);
@@ -68,10 +65,30 @@ bool print_volume_level() {
 	return true;
 }
 
+void print_weather() {
+	fflush(stdout); // Make sure things that should have been printed from C are printed 
+					// before python output.
+	system("python weather.py");
+}
+
 int main(int argc, char* argv[]) {
-	print_volume_level();
+	printf("^C0^^B7^");
+	
 	fputc(' ', stdout);
-	print_time_string();
+	print_weather();
+
+	if(!print_volume_level()) {
+		printf("Time Error");
+	}
+
+	fputc(' ', stdout);
+	printf("^C2^^B0^");
+
+	fputc(' ', stdout);
+	if(!print_time_string()) {
+		printf("Volume error");
+	}
+
 	fputc(' ', stdout);
 	
 	return EXIT_SUCCESS;
