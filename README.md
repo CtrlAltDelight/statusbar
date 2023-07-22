@@ -1,7 +1,25 @@
-# Simple Bar
+# StatusBar
 Creating my statusbar. Tested on dwm with status2d patch but I'm sure it can be adapted to many different purposes.
 
 Requires a [Nerd Font](https://www.nerdfonts.com/#home) for the icons to display correctly.
+
+## Quick start
+Clone this repository:
+
+```
+git clone https://github.com/CtrlAltDelight/statusbar
+```
+
+Make the executable for the C code:
+```
+make
+```
+
+Run the shell script in the background:
+```
+./statusbar.sh &
+```
+Your dwm  statusbar should now display modules. If you see strange symbolds, make sure you patch your dwm with status2d or use my dwm fork [CtrlAltDelight/dwm](https://github.com/CtrlAltDelight/dwm).
 
 ## Currently there are modules for
 - Weather 
