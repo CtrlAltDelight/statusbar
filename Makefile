@@ -8,4 +8,9 @@ $(EXECUTABLE): status.c
 	$(CC) $(CFLAGS) $(SRC_C) -o $(EXECUTABLE)
 
 test: $(EXECUTABLE) statusbar.sh
-	timeout 3s ./statusbar.sh
+	./statusbar.sh
+
+clean:
+	rm -rf $(EXECUTABLE)
+
+.PHONY: test clean
